@@ -1,7 +1,7 @@
 -- when a player logs in the discord bot will check if they have the required role to access the server
 -- the bot also checks if the player has staff privileges and should be logged in with those
 
-PATH_TO_DUA_EVENT = "/home/server/bin/DUA.py" -- path to event where the python file is located.
+PATH_TO_DUA_EVENT = "/home/server/bin/lua_scripts/elunamod-DUA/DUA.py" -- path to event where the python file is located.
 
 function getCommandParameters(command) -- Takes a string and splits it up by spaces into a table. Used for player commands.
     local pattern = "%S+" -- Separate by spaces
@@ -41,7 +41,7 @@ local function DUA_LoginCheckTimed(eventid, delay, repeats, player) -- after tim
 		return
 	end
 	player:SendBroadcastMessage("[DUA]: You are either not in the discord server or do not have the required roles to access this server. You will be kicked in 30 seconds.")
-	Player:SetPlayerLock( true )
+	player:SetPlayerLock( true )
 	player:RegisterEvent(DUA_Kick, 60 * 1000, 1)
 end
 

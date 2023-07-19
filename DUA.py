@@ -1,7 +1,14 @@
 import configparser, asyncio, sys, os # Standard Libs
-import discord, mysql.connector # Requires from pip3: discord-py
+import discord # Requires from pip3: discord-py
 
-apiKey = "apiKEY"
+## Setup
+##
+config = configparser.ConfigParser()
+config.read('lua_scripts/elunamod-DUA/DUA.cfg') # PATH TO WHERE YOUR CFG FILE IS. WHEN ELUNA LAUNCHES THIS PY FILE, IT BEGINS IN /bin/
+
+apiKey = config['discord']['key']
+## Setup END
+##
 
 # NOT USED YET, DONT USE
 # discordServerID = 123 # Your server ID
@@ -32,7 +39,7 @@ if run_arg == "load":
     @client.event
     async def on_ready():
         active_file = open("DUA_DB.DUA", "x")
-        print(f"We have logged in as {client.user}")
+        print(f"[Discord]: We have logged in as {client.user}")
         for guild in client.guilds:
             for member in guild.members:
                 string_to_write = ""
@@ -42,6 +49,7 @@ if run_arg == "load":
                         # string_to_write = string_to_write + " " + str(role.id)
                         string_to_write = string_to_write + " " + str(role.id)
                 active_file.write(string_to_write + "\n")
+        print("[DUA]: Successfully wrote DUA_DB.DUA file.")
         active_file.close()
         await client.close()
     client.run(apiKey)
